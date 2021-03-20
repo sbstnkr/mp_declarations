@@ -101,11 +101,13 @@ class Declaration:
             pln_money = re.sub(f'[^{self.polish_letters}^0-9,. A-Za-z]+', '',
                                re.search('polskiej: (.*)\n', self.get_text()[1]).group(1)).strip()
 
-            if pln_money == '....':
+            if not pln_money.isalnum():
                 pln_money = self.get_text()[1].split('\n')[2].strip()
 
         except AttributeError:
             pln_money = self.get_text()[1].split('\n')[2].strip()
+
+        print(pln_money)
 
 
 pdf_file = 'OSW91_159.pdf'
