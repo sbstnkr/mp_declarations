@@ -2,6 +2,7 @@ from PIL import Image
 import pytesseract
 from pdf2image import convert_from_path
 import re
+import string
 
 
 class Declaration:
@@ -101,13 +102,26 @@ class Declaration:
             pln_money = re.sub(f'[^{self.polish_letters}^0-9,. A-Za-z]+', '',
                                re.search('polskiej: (.*)\n', self.get_text()[1]).group(1)).strip()
 
-            if not pln_money.isalnum():
+            if all(i in string.punctuation for i in pln_money):
                 pln_money = self.get_text()[1].split('\n')[2].strip()
 
         except AttributeError:
             pln_money = self.get_text()[1].split('\n')[2].strip()
 
         print(pln_money)
+
+    def get_foreign_money(self):
+        try:
+            foreign_money = re.sub(f'[^{self.polish_letters}^0-9,. A-Za-z]+', '',
+                               re.search('obcej: (.*)\n', self.get_text()[1]).group(1)).strip()
+
+            if all(i in string.punctuation for i in foreign_money):
+                foreign_money = self.get_text()[1].split('\n')[2].strip()
+
+        except AttributeError:
+            foreign_money = self.get_text()[1].split('\n')[2].strip()
+
+        print(foreign_money)
 
 
 pdf_file = 'OSW91_159.pdf'
