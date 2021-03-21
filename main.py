@@ -59,6 +59,7 @@ for ind, mp in enumerate(mps):
                         'foreign_money': foreign_money,
                         'declaration_date': 'null'})
         except:
+            print('problem')
             continue
 
 with open('data.json', 'w', encoding='utf-8') as f:
