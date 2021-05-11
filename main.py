@@ -10,7 +10,7 @@ api = []
 
 
 def get_city(location):
-    key = 'AIzaSyBEu_cX_5ViUUlYQP6oAVKQB59--9OjuN0'
+    key = ''
 
     url = f'https://maps.googleapis.com/maps/api/geocode/json?address={location}&key={key}'
     r = requests.get(url).json()
